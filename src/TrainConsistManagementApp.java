@@ -5,34 +5,24 @@ public class TrainConsistManagementApp {
     public static void main(String[] args) {
 
         System.out.println("==== Train Consist Management App ====");
-        System.out.println("================================================================\n");
-        System.out.println("==== UC4 - Maintain Ordered Bogie IDs (TreeSet & SortedSet) ====\n");
-        System.out.println("================================================================\n");
+        System.out.println("=================================================================\n");
+        System.out.println("==== UC5 - Preserve Insertion Order of Bogies (LinkedHashSet) ====\n");
+        System.out.println("=================================================================\n");
 
-        List<String> trainConsist = new LinkedList<>();
+        Set<String> formation = new LinkedHashSet<>();
 
-        trainConsist.add("Engine");
-        trainConsist.add("Sleeper");
-        trainConsist.add("AC");
-        trainConsist.add("Cargo");
-        trainConsist.add("Guard");
+        formation.add("Engine");
+        formation.add("Sleeper");
+        formation.add("Cargo");
+        formation.add("Guard");
 
+        boolean isDuplicateAdded = formation.add("Sleeper");
 
-        System.out.println("Initial Train Consist:");
-        System.out.println(trainConsist);
+        System.out.println("Final Train Formation:");
+        System.out.println(formation);
 
-
-        trainConsist.add(2, "Pantry Car");
-
-        System.out.println("\nAfter Inserting 'Pantry Car' at position 2:");
-        System.out.println(trainConsist);
-
-        ((LinkedList<String>) trainConsist).removeFirst();
-        ((LinkedList<String>) trainConsist).removeLast();
-
-        System.out.println("\nAfter Removing First and Last Bogie:");
-        System.out.println(trainConsist);
-
-        System.out.println("\nUC4 ordered consist operations completed...");
+        System.out.println("Note: \nLinkedHashSet preserves insertion order and removes duplicates automatically.\n\n");
+        System.out.println("UC5 formation setup completed ...\n");
     }
 }
+
