@@ -1,33 +1,34 @@
 import java.util.*;
 public class TrainConsistManagementApp {
-    static class Bogie {
+    static class InvalidCapacityException extends Exception {
+        public InvalidCapacityException(String message) {
+            super(message);
+        }
+    }
+    static class PassengerBogie {
         String type;
         int capacity;
-
-        Bogie(String type, int capacity) {
+        PassengerBogie(String type, int capacity) throws InvalidCapacityException {
+            if (capacity <= 0) {
+                throw new InvalidCapacityException("Capacity must be greater than zero");
+            }
             this.type = type;
             this.capacity = capacity;
         }
     }
     public static void main(String[] args) {
-        System.out.println("================================================");
-        System.out.println(" UC13 - Performance Comparison (Loops vs Streams) ");
-        System.out.println("================================================\n");
-        List<Bogie> bogies = new ArrayList<>();
-        for (int i = 0; i < 100000; i++) {
-            bogies.add(new Bogie("Type" + i, i % 100));
+        System.out.println("=====================================");
+        System.out.println(" UC14 - Handle Invalid Bogie Capacity ");
+        System.out.println("=====================================\n");
+        try {
+            PassengerBogie b1 = new PassengerBogie("Sleeper", 72);
+            System.out.println("Created Bogie: " + b1.type + " -> " + b1.capacity);
+
+            PassengerBogie b2 = new PassengerBogie("AC Chair", -10);
+            System.out.println("Created Bogie: " + b2.type + " -> " + b2.capacity);
+        } catch (InvalidCapacityException e) {
+            System.out.println("Exception: " + e.getMessage());
         }
-        long startLoop = System.nanoTime();
-        for (Bogie b : bogies) {
-            if (b.capacity > 60) {
-            }
-        }
-        long endLoop = System.nanoTime();
-        long startStream = System.nanoTime();
-        bogies.stream().filter(b -> b.capacity > 60).toList();
-        long endStream = System.nanoTime();
-        System.out.println("Loop Execution Time (ns): " + (endLoop - startLoop));
-        System.out.println("Stream Execution Time (ns): " + (endStream - startStream));
-        System.out.println("\nUC13 performance benchmarking completed...");
+        System.out.println("\nUC14 exception handling completed...");
     }
 }
